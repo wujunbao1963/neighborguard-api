@@ -1,13 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
-import { User } from './users/user.entity';
-import { Circle } from './circles/circle.entity';
-import { CircleMember } from './circles/circle-member.entity';
-import { Event } from './events/event.entity';
-import { EventComment } from './events/event-comment.entity';
-import { VideoAsset } from './media/video-asset.entity';
-import { Notification } from './notifications/notification.entity';
 
 // Load environment variables
 config();
@@ -24,16 +17,9 @@ export const AppDataSource = new DataSource(
         ssl: {
           rejectUnauthorized: false,
         },
-        entities: [
-          User,
-          Circle,
-          CircleMember,
-          Event,
-          EventComment,
-          VideoAsset,
-          Notification,
-        ],
-        migrations: ['src/migrations/*{.ts,.js}'],
+        // Automatically discover all entities
+        entities: ['dist/**/*.entity.js'],
+        migrations: ['dist/migrations/*{.js}'],
         synchronize: false,
         logging: process.env.NODE_ENV === 'development',
       }
@@ -45,16 +31,9 @@ export const AppDataSource = new DataSource(
         username: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
-        entities: [
-          User,
-          Circle,
-          CircleMember,
-          Event,
-          EventComment,
-          VideoAsset,
-          Notification,
-        ],
-        migrations: ['src/migrations/*{.ts,.js}'],
+        // Automatically discover all entities
+        entities: ['src/**/*.entity.ts'],
+        migrations: ['src/migrations/*{.ts}'],
         synchronize: false,
         logging: true,
       }
