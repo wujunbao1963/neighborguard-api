@@ -6,7 +6,6 @@ import { Circle } from './circles/circle.entity';
 import { CircleMember } from './circles/circle-member.entity';
 import { Event } from './events/event.entity';
 import { EventComment } from './events/event-comment.entity';
-import { EventNote } from './events/event-note.entity';
 import { VideoAsset } from './media/video-asset.entity';
 import { Notification } from './notifications/notification.entity';
 
@@ -31,7 +30,6 @@ export const AppDataSource = new DataSource(
           CircleMember,
           Event,
           EventComment,
-          EventNote,
           VideoAsset,
           Notification,
         ],
@@ -53,7 +51,6 @@ export const AppDataSource = new DataSource(
           CircleMember,
           Event,
           EventComment,
-          EventNote,
           VideoAsset,
           Notification,
         ],
