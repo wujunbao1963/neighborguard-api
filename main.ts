@@ -40,7 +40,7 @@ async function bootstrap() {
     maxAge: 3600,
   });
 
-  const port = Number(process.env.PORT ?? process.env.APP_PORT ?? 3000);
+  const port = Number(process.env.PORT ?? 8080);
   await app.listen(port, '0.0.0.0');
   
   console.log({ PORT: process.env.PORT, APP_PORT: process.env.APP_PORT, chosenPort: port });
