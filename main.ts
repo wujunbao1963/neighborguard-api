@@ -47,6 +47,10 @@ async function bootstrap() {
   console.log(`🚀 Application is running on: http://localhost:${port}`);
   console.log(`📚 API available at: http://localhost:${port}/api`);
   console.log(`🌍 Allowing CORS from: ${allowedOrigins.join(', ')}`);
+
+
+console.log({ PORT: process.env.PORT, chosenPort: port });
+console.log(`Listening on ${await app.getUrl()}`);  
 }
 
 bootstrap();
