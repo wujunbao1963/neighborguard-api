@@ -5,9 +5,10 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "scripts": {
-    "start:prod": "npm run typeorm migration:run && node dist/main"
-  },
+   "scripts": {
+     "start": "node src/server.js",
+     "test": "echo \"Error: no test specified\" && exit 1"
+   },
   "dependencies": {
     "@nestjs/common": "^10.3.0",
     "@nestjs/config": "^3.1.1",
