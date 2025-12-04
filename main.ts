@@ -1,3 +1,5 @@
+console.log('=== MAIN.TS VERSION 2025-12-04 15:30 ===');
+
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
