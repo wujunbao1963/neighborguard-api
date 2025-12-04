@@ -1,0 +1,36 @@
+// src/main.ts
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const config = app.get(ConfigService);
+
+  // Global validation/transforms for DTOs
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
+  app.setGlobalPrefix('api');
+
+  const frontendOrigin = config.get<string>('FRONTEND_ORIGIN'); // required by Joi schema
+
+  app.enableCors({
+    origin: frontendOrigin,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-id'],
+    credentials: false,
+  });
+
+  const port = config.get<number>('APP_PORT') ?? 3000;
+  await app.listen(port, '0.0.0.0');
+}
+
+bootstrap();
+
