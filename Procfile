@@ -1,2 +1,3 @@
-web: npm run build && node dist/main.js
+web: rm -rf dist && npm run build && node dist/main.js
+
 
