@@ -40,17 +40,14 @@ async function bootstrap() {
     maxAge: 3600,
   });
 
-  const port = Number(process.env.PORT ?? 8080);
+  const port = process.env.PORT || 8080;
   await app.listen(port, '0.0.0.0');
+
   
-  console.log({ PORT: process.env.PORT, APP_PORT: process.env.APP_PORT, chosenPort: port });
-  console.log(`🚀 Application is running on: http://localhost:${port}`);
-  console.log(`📚 API available at: http://localhost:${port}/api`);
-  console.log(`🌍 Allowing CORS from: ${allowedOrigins.join(', ')}`);
-
-
-console.log({ PORT: process.env.PORT, chosenPort: port });
-console.log(`Listening on ${await app.getUrl()}`);  
+  console.log(`🚀 Application is running on: http://0.0.0.0:${port}`);
+  console.log(`📚 API available at: http://0.0.0.0:${port}/api`);
+  console.log(`📖 Swagger docs: http://0.0.0.0:${port}/api/docs`);
+  console.log(`🌍 Allowing CORS from: ${allowedOrigins}`);
 }
 
 bootstrap();
