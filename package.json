@@ -6,9 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start:prod": "node dist/main",
-    "build": "nest build",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "start:prod": "npm run typeorm migration:run && node dist/main"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.0",
