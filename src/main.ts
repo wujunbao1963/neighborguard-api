@@ -90,18 +90,3 @@ bootstrap().catch(err => {
   console.error(err);
   process.exit(1);
 });
-```
-
-5. Commit with message: "Fix duplicate imports in src/main.ts"
-6. Wait for Railway to rebuild
-
-## 🎯 After This Fix:
-
-You should see in the logs:
-```
-==========================================
-BOOTSTRAP STARTING
-==========================================
-Node version: v22.21.1
-Environment: production
-PORT from env: 8080
