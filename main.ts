@@ -1,14 +1,14 @@
-// src/main.ts
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const config = app.get(ConfigService);
+  const configService = app.get(ConfigService);
 
-  // Global validation/transforms for DTOs
+  // Global validation
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -19,17 +19,11 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  // CORS configuration with support for multiple origins
-  const frontendOrigin = config.get<string>('FRONTEND_ORIGIN');
-  
-  // Parse multiple origins if comma-separated, or use defaults
+  // CORS configuration
+  const frontendOrigin = configService.get<string>('FRONTEND_ORIGIN');
   const allowedOrigins = frontendOrigin
     ? frontendOrigin.split(',').map(origin => origin.trim())
-    : [
-        'http://localhost:5173',  // Vite default port
-        'http://localhost:3001',  // Alternative port
-        'http://localhost:3000',  // Development
-      ];
+    : ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'];
 
   app.enableCors({
     origin: allowedOrigins,
@@ -40,14 +34,31 @@ async function bootstrap() {
     maxAge: 3600,
   });
 
+  // Swagger docs
+  const config = new DocumentBuilder()
+    .setTitle('NeighborGuard API')
+    .setDescription('Community Safety Reporting API')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
+
   const port = process.env.PORT || 8080;
   await app.listen(port, '0.0.0.0');
-
   
+  // Fixed console.log statements - note the parenthesis placement!
   console.log(`🚀 Application is running on: http://0.0.0.0:${port}`);
   console.log(`📚 API available at: http://0.0.0.0:${port}/api`);
   console.log(`📖 Swagger docs: http://0.0.0.0:${port}/api/docs`);
-  console.log(`🌍 Allowing CORS from: ${allowedOrigins}`);
+  console.log(`🌍 Allowing CORS from: ${allowedOrigins.join(', ')}`);
 }
-
 bootstrap();
+```
+
+## 🚀 Steps to Fix:
+
+1. **Edit main.ts on GitHub** (fix the console.log syntax)
+2. **Add FRONTEND_ORIGIN in Railway Variables:**
+```
+   FRONTEND_ORIGIN=https://neighborguard-production.up.railway.app,http://localhost:3000
