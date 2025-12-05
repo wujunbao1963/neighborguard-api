@@ -34,13 +34,15 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   console.log('API prefix set to /api');
 
-  const frontendOrigin = configService.get<string>('FRONTEND_ORIGIN');
-  console.log('Frontend origin: ' + frontendOrigin);
-  
-  const allowedOrigins = frontendOrigin
-    ? frontendOrigin.split(',').map(origin => origin.trim())
-    : ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'];
+  // HARDCODED CORS - Railway variable substitution bug
+  // The FRONTEND_ORIGIN variable is being cached/substituted incorrectly by Railway
+  const allowedOrigins = [
+    'https://neighborguard-front-production.up.railway.app',
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ];
 
+  console.log('Using HARDCODED allowed origins (Railway variable bug workaround)');
   console.log('Allowed origins: ' + allowedOrigins.join(', '));
 
   app.enableCors({
