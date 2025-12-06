@@ -14,6 +14,7 @@ import { HomeModule } from './home/home.module';
 import { HealthModule } from './health/health.module';
 import { envValidationSchema } from './config/env.validation';
 import { CurrentUserInterceptor } from './auth/current-user.interceptor';
+import { DeviceTokensModule } from './device-tokens/device-tokens.module';
 
 @Module({
   imports: [
@@ -85,6 +86,7 @@ import { CurrentUserInterceptor } from './auth/current-user.interceptor';
     NotificationsModule,
     HomeModule,
     HealthModule,
+    DeviceTokensModule,
   ],
   providers: [
     {
